@@ -194,6 +194,7 @@ import { toast } from "react-toastify";
 import Header from "../../dashboard/header";
 import ReactMarkdown from "react-markdown";
 import { io } from "socket.io-client";
+import { useCallback } from "react";
 
 const MilestoneDetail = () => {
   const { id } = useParams();
@@ -204,18 +205,28 @@ const MilestoneDetail = () => {
 
   const isLoggedIn = !!sessionStorage.getItem("token");
 
-  const fetchMilestone = async () => {
+  const fetchMilestone = useCallback(async () => {
+  try {
     const { data } = await api.get(`/milestones/${id}`);
     setMilestone(data);
-  };
+  } catch (error) {
+    console.error("Failed to fetch milestone:", error);
+  }
+}, [id]);
 
-  const fetchTips = async () => {
+const fetchTips = useCallback(async () => {
+  try {
     const { data } = await api.get(`/community-tips/${id}`);
     const sortedTips = data.sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
     setTips(sortedTips);
-  };
+  } catch (error) {
+    console.error("Failed to fetch tips:", error);
+  }
+}, [id]);
+
+  
 
   useEffect(() => {
     fetchMilestone();
@@ -237,7 +248,7 @@ const MilestoneDetail = () => {
     return () => {
       socketRef.current.disconnect();
     };
-  }, [id]);
+  }, [fetchMilestone, fetchTips, id]);
 
   const handleAddTip = async () => {
     if (!tipContent.trim()) return toast.error("Tip cannot be empty");
