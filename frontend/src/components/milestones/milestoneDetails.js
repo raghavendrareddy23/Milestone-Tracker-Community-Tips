@@ -222,7 +222,7 @@ const MilestoneDetail = () => {
     fetchTips();
 
     // ✅ Connect socket once
-    socketRef.current = io("http://localhost:2023");
+    socketRef.current = io("https://milestone-tracker-community-tips.onrender.com");
 
     // ✅ Join milestone room
     socketRef.current.emit("join", id);
