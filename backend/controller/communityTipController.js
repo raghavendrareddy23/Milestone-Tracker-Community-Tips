@@ -1,20 +1,5 @@
 const Tip = require("../model/ctipModel");
 
-// Add a new tip for a milestone
-// exports.addTip = async (req, res) => {
-//   const { milestoneId, content } = req.body;
-//   try {
-//     const tip = await Tip.create({
-//       milestoneId,
-//       content,
-//       author: req.userId
-//     });
-//     res.status(201).json({ message: 'Tip added successfully', tip });
-//   } catch (err) {
-//     res.status(500).json({ message: 'Error adding tip' });
-//   }
-// };
-
 exports.addTip = async (req, res) => {
   const { milestoneId, content } = req.body;
   try {

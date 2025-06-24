@@ -8,7 +8,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/" element={<AuthPage />} /> */}
         <Route path="/" element={<Dashboard />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/milestone/new" element={<CreateMilestone />} />
